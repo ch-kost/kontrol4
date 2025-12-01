@@ -8,10 +8,9 @@ function RoadmapImporter({ onImport }) {
 
   const handleImport = async () => {
     setImporting(true);
-    // Mock import from API
     const mockRoadmap = [
-      { id: Date.now(), title: 'React Hooks', description: 'Advanced hooks', status: 'not-started' },
-      { id: Date.now() + 1, title: 'Node.js', description: 'Backend basics', status: 'not-started' }
+      { id: Date.now(), title: 'React Hooks', description: 'Advanced hooks', status: 'not-started', category: 'Frontend', priority: 'high' },
+      { id: Date.now() + 1, title: 'Node.js', description: 'Backend basics', status: 'not-started', category: 'Backend', priority: 'medium' },
     ];
     for (const tech of mockRoadmap) {
       await addTechnology(tech);
@@ -22,8 +21,10 @@ function RoadmapImporter({ onImport }) {
 
   return (
     <Box>
-      <Button variant="contained" onClick={handleImport} disabled={importing}>Импортировать дорожную карту</Button>
-      {importing && <CircularProgress />}
+      <Button variant="contained" color="secondary" onClick={handleImport} disabled={importing || loading}>
+        Импортировать дорожную карту
+      </Button>
+      {importing && <CircularProgress size={24} sx={{ ml: 1 }} />}
       {error && <Alert severity="error">{error}</Alert>}
     </Box>
   );
